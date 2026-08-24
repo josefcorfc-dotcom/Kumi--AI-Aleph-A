@@ -1,0 +1,6 @@
+{
+  "name": "NeuroBIN - Cantor Recursion Bio-Digital Simulator",
+  "description": "Exploration of Cantor recursion (∞ - n = NeuroBIN), bridging biological neuronal action potentials and digital binary electrical pulse ecosystems.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
