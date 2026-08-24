@@ -147,6 +147,146 @@ import {
     appId: "1:393021262209:web:f63c602d466b0d7f4d0080",
     measurementId: "G-73QGZRM64N"
   };
+<!-- SECTION 5: TERMINAL SYNC & LOGS -->
+    <section id="terminal-sync" class="space-y-8">
+        <div class="border-l-4 border-cyan-500 pl-6">
+            <h3 class="text-2xl font-bold text-stone-900">Sincronización del Nodo SQ-3000_G6</h3>
+            <p class="text-stone-500 text-sm">Monitoreo de sockets `wss://api.neurospark.inc` y registro de despliegue en tiempo real.</p>
+        </div>
+
+        <div class="terminal-bg rounded-3xl p-6 border border-stone-800 space-y-4">
+            <div class="flex items-center justify-between border-b border-stone-800 pb-3 text-xs font-mono text-stone-400">
+                <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-ping"></span>
+                    <span>WEBSOCKET SYNC: ACTIVE</span>
+                </div>
+                <span>NODE ID: SQ-3000_G6 | RFC: CALF8712186T5</span>
+            </div>
+            <div id="sync-console" class="font-mono text-xs text-cyan-400 h-36 overflow-y-auto space-y-1 dark-scrollbar">
+                <p> <span class="text-emerald-400">[OK]</span> Inicializado contenedor Cloud Run Gen2: neurobin-aleph-v28-4</p>
+                <p> <span class="text-emerald-400">[OK]</span> DEK cargada en RAM volátil (In-Memory LRU Engine PI_4 activo)</p>
+                <p> <span class="text-amber-400">[SYNC]</span> Conexión WebSocket establecida con wss://api.neurospark.inc/ws/kumi-stream</p>
+                <p> <span class="text-emerald-400">[OK]</span> Hash de custodia verificado en gs://kumi-ghost-alef-g6-000155/</p>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="border-t border-stone-200 py-8 bg-stone-100 text-stone-500 text-xs text-center font-mono">
+    <p>CONJUNTO DE CANTOR ARQUITECTURA SOBERANA © 2026 | KUMI-AI.MX</p>
+    <p class="mt-1">APACHE LICENSE 2.0 | PROYECTO: cantoriano-leyvajf</p>
+</footer>
+
+<!-- SCRIPT DE LOGICA Y GRAFICOS -->
+<script>
+    // Data para Evolución de Latencia (Chart.js)
+    const ctx = document.getElementById('evolutionChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['v28.2 (Síncrono)', 'v28.3 (Redis Cache)', 'v28.4-DIRECT (RAM Local)'],
+            datasets: [{
+                label: 'Latencia Extremo a Extremo (ms)',
+                data: [180, 15, 0.18],
+                backgroundColor: ['#78716c', '#d4af37', '#10b981'],
+                borderRadius: 8
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+                y: { type: 'logarithmic', grid: { color: 'rgba(0,0,0,0.05)' } },
+                x: { grid: { display: false } }
+            }
+        }
+    });
+
+    // Cambio interactivo de Fases Envelope Encryption
+    const phases = {
+        pi2: {
+            title: 'PI_2: KMS Síncrono Directo',
+            loc: 'GCP KMS Service (External Call)',
+            lat: '120 - 250 ms',
+            desc: 'Cada petición entrante realiza una llamada de red síncrona hacia la API de Google Cloud KMS para desempaquetar la clave de cifrado de datos (DEK). Alta latencia e impacto por ratelimiting.',
+            latClass: 'text-rose-500'
+        },
+        pi3: {
+            title: 'PI_3: Caché Redis Distribuido',
+            loc: 'Memorystore Redis Cluster',
+            lat: '5 - 15 ms',
+            desc: 'Las DEK se almacenan en una instancia externa de Redis. Se reduce la sobrecarga a GCP KMS, pero se mantiene la latencia de red en la red privada de GCP (VPC Connector).',
+            latClass: 'text-amber-500'
+        },
+        pi4: {
+            title: 'PI_4: Direct In-Memory Engine',
+            loc: 'Cloud Run Gen2 RAM',
+            lat: '< 0.2 ms',
+            desc: 'La clave de cifrado de datos (DEK) se almacena en la memoria volátil del contenedor. Al recibir un mensaje de Pub/Sub, la desencripción AES-256-GCM se ejecuta instantáneamente sin salir de la instancia de cómputo.',
+            latClass: 'text-emerald-600'
+        }
+    };
+
+    function switchPhase(phaseKey) {
+        const phase = phases[phaseKey];
+        document.getElementById('phase-title').innerText = phase.title;
+        document.getElementById('phase-loc').innerText = phase.loc;
+        
+        const latEl = document.getElementById('phase-lat');
+        latEl.innerText = phase.lat;
+        latEl.className = `text-sm font-bold ${phase.latClass}`;
+        
+        document.getElementById('phase-desc').innerText = phase.desc;
+
+        document.querySelectorAll('.phase-btn').forEach(btn => {
+            btn.classList.remove('border-amber-500', 'bg-amber-50/50');
+        });
+        document.getElementById(`btn-${phaseKey}`).classList.add('border-amber-500', 'bg-amber-50/50');
+    }
+
+    // Generador fractal del Conjunto de Cantor
+    function renderCantor() {
+        const canvas = document.getElementById('cantorCanvas');
+        const ctx = canvas.getContext('2d');
+        const depth = parseInt(document.getElementById('cantor-depth').value);
+        document.getElementById('depth-val').innerText = depth;
+
+        canvas.width = canvas.offsetWidth;
+        canvas.height = canvas.offsetHeight;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        const width = canvas.width - 40;
+        const startX = 20;
+        const startY = 20;
+        const lineHeight = 12;
+        const gap = 18;
+
+        function drawCantorLine(x, y, len, currentDepth) {
+            if (currentDepth > depth) return;
+
+            ctx.fillStyle = '#d4af37';
+            ctx.fillRect(x, y, len, lineHeight);
+
+            const newLen = len / 3;
+            const nextY = y + gap;
+
+            drawCantorLine(x, nextY, newLen, currentDepth + 1);
+            drawCantorLine(x + newLen * 2, nextY, newLen, currentDepth + 1);
+        }
+
+        drawCantorLine(startX, startY, width, 1);
+    }
+
+    // Inicializar render inicial
+    window.onload = () => {
+        renderCantor();
+    };
+</script>
+
+
 
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
