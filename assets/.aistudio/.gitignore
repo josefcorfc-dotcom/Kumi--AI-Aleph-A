@@ -1,1 +1,154 @@
-*
+import React, { useState, useEffect, useCallback, useRef } from 'react';
+import { 
+  ShieldCheck, 
+  Cpu, 
+  Binary,
+  Activity, 
+  Lock, 
+  Unlock, 
+  ChevronRight, 
+  RefreshCw,
+  Cloud,
+  HardDrive,
+  Eye,
+  Waves,
+  Sparkles,
+  Volume2,
+  Terminal,
+  AlertTriangle,
+  BrainCircuit,
+  Zap,
+  Fingerprint,
+  FileCode,
+  ShieldAlert
+} from 'lucide-react';
+<Nucleo_Agente_Gemini_Flash.py>
+<const ws = new WebSocket("wss://api.neurospark.inc/ws/kumi-stream?project=cantoriano-leyvajf&node=SQ-3000_G6&op=CALF8712186T5")
+<Encriptación aleph AEA.py>
+<!Chrome+x kumi-engine ./kumi-engine --export-app --online>
+{
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  },
+  "storage": {
+    "rules": "storage.rules"
+  },
+  "hosting": {
+    "site": "cantoriano-leyvajf",
+    "public": "public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "cleanUrls": true,
+    "trailingSlash": false,
+    "appAssociation": "AUTO",
+    "headers": [
+      {
+        "source": "**",
+        "headers": [
+          {
+            "key": "Strict-Transport-Security",
+            "value": "max-age=31536000; includeSubDomains; preload"
+          },
+          {
+            "key": "X-Content-Type-Options",
+            "value": "nosniff"
+          },
+          {
+            "key": "X-Frame-Options",
+            "value": "SAMEORIGIN"
+          },
+          {
+            "key": "X-XSS-Protection",
+            "value": "1; mode=block"
+          },
+          {
+            "key": "Referrer-Policy",
+            "value": "strict-origin-when-cross-origin"
+          },
+          {
+            "key": "Permissions-Policy",
+            "value": "geolocation=(), microphone=(), camera=()"
+          },
+          {
+            "key": "Content-Security-Policy",
+            "value": "default-src 'self' https://www.gstatic.com https://*.firebaseio.com https://*.googleapis.com https://firestore.googleapis.com https://cdn.tailwindcss.com https://www.googletagmanager.com; script-src 'self' 'unsafe-inline' https://www.gstatic.com https://cdn.tailwindcss.com https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://fonts.googleapis.com; img-src 'self' data: https: blob:; connect-src 'self' https://*.firebaseio.com https://*.googleapis.com https://firestore.googleapis.com https://*.cloudfunctions.net https://www.google-analytics.com https://storage.googleapis.com; font-src 'self' https://fonts.gstatic.com"
+          }
+        ]
+      },
+      {
+        "source": "**/*.@(js|css|woff2)",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "max-age=31536000, immutable"
+          }
+        ]
+      },
+      {
+        "source": "**/*.@(html)",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "max-age=0, must-revalidate"
+          }
+        ]
+      }
+    ],
+    "redirects": [
+      {
+        "source": "/kumi",
+        "destination": "/",
+        "type": 301
+      }
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  },
+  "emulators": {
+    "auth": {
+      "port": 9099
+    },
+    "firestore": {
+      "port": 8080
+    },
+    "hosting": {
+      "port": 5000
+    },
+    "storage": {
+      "port": 9199
+    },
+    "ui": {
+      "enabled": true
+    },
+    "singleProjectMode": true
+  }<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyBjSfOLpSyjTOLvNiDD-p1pG3JrToGMKuM",
+    authDomain: "cantoriano-leyvajf.firebaseapp.com",
+    projectId: "cantoriano-leyvajf",
+    storageBucket: "cantoriano-leyvajf.firebasestorage.app",
+    messagingSenderId: "393021262209",
+    appId: "1:393021262209:web:f63c602d466b0d7f4d0080",
+    measurementId: "G-73QGZRM64N"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+</script>*
