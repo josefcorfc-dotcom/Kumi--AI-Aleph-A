@@ -151,4 +151,15 @@ import {
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
   const analytics = getAnalytics(app);
-</script>*
+</script>
+                        <p class="text-xs leading-relaxed mb-6">
+                            Gemini 1.5 Flash evalúa las desviaciones en las matrices de Cantor para detectar picos de telemetría cardíaca o neural irregular en tiempo real.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
+
