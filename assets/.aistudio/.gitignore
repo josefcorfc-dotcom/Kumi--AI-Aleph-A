@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { 
   ShieldCheck, 
+  android-latest-release,
   Cpu, 
   Binary,
   Activity, 
