@@ -74,10 +74,10 @@ export const SignalCodex: React.FC = () => {
             className="w-full bg-white/5 backdrop-blur-md border border-white/15 rounded-full px-4 py-2.5 text-sm text-white font-mono focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400/50 shadow-inner"
           />
           <div className="flex flex-wrap gap-1.5 mt-1">
-            {['NeuroBIN', 'Cantor', 'Pulse', '10110', '∞ - n'].map((preset) => (
+            {['NeuroBIN', 'Cantor', 'Pulse', '10110', 'ML-KEM-1024_Σ', 'Gist:5dbe159'].map((preset) => (
               <button
                 key={preset}
-                onClick={() => setInputText(preset)}
+                onClick={() => setInputText(preset === 'Gist:5dbe159' ? '5dbe159d4dee' : preset)}
                 className="text-[10px] font-mono px-3 py-1 rounded-full bg-white/10 hover:bg-white/20 text-slate-200 border border-white/15 transition"
               >
                 {preset}
@@ -116,6 +116,14 @@ export const SignalCodex: React.FC = () => {
             <span>Peak Spike Freq: <strong className="text-emerald-300">65 Hz</strong></span>
             <span>Silent Interval Freq: <strong className="text-slate-400">18 Hz</strong></span>
             <span>Cantor Depth Map: <strong className="text-indigo-300">C_4(8-bit)</strong></span>
+            <a
+              href="https://gist.github.com/josefcorfc-dotcom/5dbe159d4dee4bdb909c6292e86b3ccf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-cyan-400 hover:underline text-[10px] flex items-center gap-1 font-mono"
+            >
+              Gist #5dbe159 ↗
+            </a>
           </div>
         </div>
 
