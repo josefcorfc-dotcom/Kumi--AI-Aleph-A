@@ -107,17 +107,6 @@ Explain complex bio-digital phenomena clearly, elegantly, and engagingly.
     }
   });
 
-  // API Endpoint: KUMI AEA Asset Mapping (Mock BigQuery / Gemini Integration)
-  app.get('/api/kumi/asset-mapping', (req, res) => {
-    res.json({
-      id: 'ALEPH-SIGMA-EVAL-VOMINI-8K',
-      status: 'ACTIVO',
-      resilience: 99.9999,
-      symmetryIndex: 0.99998,
-      syncSource: 'BigQuery_Gemini_Mesh'
-    });
-  });
-
   // Serve Frontend Assets (Vite middleware in Dev, Static in Prod)
   if (process.env.NODE_ENV !== 'production') {
     const vite = await createViteServer({

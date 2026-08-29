@@ -11,13 +11,11 @@ import { CantorInterval } from '../types';
  */
 export const CANTOR_FRACTAL_DIMENSION = Math.log(2) / Math.log(3);
 
-export type FractalPatternType = 'standard' | 'mirrored';
-
 /**
- * Generates Cantor Set intervals at depth n (Removing middle thirds recursively or Mirrored Symmetric Pattern)
+ * Generates Cantor Set intervals at depth n (Removing middle thirds recursively)
  * Continuous Infinity [0,1] minus n removal operations = Cantor Set
  */
-export function generateCantorIntervals(depth: number, pattern: FractalPatternType = 'standard'): CantorInterval[] {
+export function generateCantorIntervals(depth: number): CantorInterval[] {
   let intervals: { start: number; end: number; code: string }[] = [
     { start: 0, end: 1, code: '' }
   ];
@@ -25,33 +23,19 @@ export function generateCantorIntervals(depth: number, pattern: FractalPatternTy
   for (let d = 1; d <= depth; d++) {
     const nextIntervals: { start: number; end: number; code: string }[] = [];
     for (const inv of intervals) {
-      const len = inv.end - inv.start;
-      if (pattern === 'mirrored') {
-        // Mirrored Symmetric Recursive Pattern (Reflected center-surround fractal)
-        nextIntervals.push({
-          start: inv.start + len / 6,
-          end: inv.start + len / 2,
-          code: inv.code + '0'
-        });
-        nextIntervals.push({
-          start: inv.start + len / 2,
-          end: inv.end - len / 6,
-          code: inv.code + '1'
-        });
-      } else {
-        // Standard Cantor (Removing middle thirds)
-        const subLen = len / 3;
-        nextIntervals.push({
-          start: inv.start,
-          end: inv.start + subLen,
-          code: inv.code + '0'
-        });
-        nextIntervals.push({
-          start: inv.end - subLen,
-          end: inv.end,
-          code: inv.code + '1'
-        });
-      }
+      const len = (inv.end - inv.start) / 3;
+      // Left third -> '0'
+      nextIntervals.push({
+        start: inv.start,
+        end: inv.start + len,
+        code: inv.code + '0'
+      });
+      // Right third -> '1'
+      nextIntervals.push({
+        start: inv.end - len,
+        end: inv.end,
+        code: inv.code + '1'
+      });
     }
     intervals = nextIntervals;
   }

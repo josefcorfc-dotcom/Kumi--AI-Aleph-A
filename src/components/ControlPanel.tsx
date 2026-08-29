@@ -1,5 +1,5 @@
 import React from 'react';
-import { Sliders, Cpu, Activity, Zap, Radio, ShieldAlert, HardDrive } from 'lucide-react';
+import { Sliders, Cpu, Activity, Zap, Radio, ShieldAlert } from 'lucide-react';
 import { SimulationParams } from '../types';
 
 interface ControlPanelProps {
@@ -24,12 +24,7 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({ params, onChange }) 
           <Sliders className="w-4 h-4 text-indigo-400" />
           <span>Bio-Digital Parameter Matrix</span>
         </div>
-        <div className="flex items-center gap-2">
-          <span className="flex items-center gap-1.5 text-[10px] text-emerald-300 font-mono tracking-wider bg-emerald-500/10 px-2.5 py-0.5 rounded-full border border-emerald-500/20">
-            <HardDrive className="w-3 h-3 text-emerald-400 animate-pulse" />
-            <span>Auto-Saved to LocalStorage</span>
-          </span>
-        </div>
+        <span className="text-[10px] text-slate-400 font-mono tracking-widest uppercase">Real-Time Driver</span>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -183,24 +178,6 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({ params, onChange }) 
               value={params.synapticNoise}
               onChange={(e) => updateField('synapticNoise', Number(e.target.value))}
               className="accent-cyan-400 cursor-pointer"
-            />
-          </div>
-
-          {/* Cantor Recursion Depth (n) */}
-          <div className="flex flex-col gap-1 text-xs font-mono border-t border-white/10 pt-2.5">
-            <div className="flex justify-between text-slate-200">
-              <span>Cantor Depth (n)</span>
-              <span className="text-indigo-300 font-bold">n = {params.cantorDepth} ({Math.pow(2, params.cantorDepth)} pulses)</span>
-            </div>
-            <input
-              id="slider-control-cantor-depth"
-              type="range"
-              min={0}
-              max={8}
-              step={1}
-              value={params.cantorDepth}
-              onChange={(e) => updateField('cantorDepth', Number(e.target.value))}
-              className="accent-indigo-400 cursor-pointer"
             />
           </div>
         </div>
