@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { Play, Pause, Activity, Zap, Eye, RotateCcw } from 'lucide-react';
+import { Play, Pause, Activity, Zap, Eye, RotateCcw, Download } from 'lucide-react';
 import { SimulationParams, PulseDataPoint } from '../types';
 import { createBioDigitalSimulator } from '../utils/neuro';
 import { audioSynth } from '../utils/audio';
@@ -7,11 +7,13 @@ import { audioSynth } from '../utils/audio';
 interface PulseOscilloscopeProps {
   params: SimulationParams;
   onSpikeOccurred?: (point: PulseDataPoint) => void;
+  pulseBufferRef?: React.MutableRefObject<PulseDataPoint[]>;
 }
 
 export const PulseOscilloscope: React.FC<PulseOscilloscopeProps> = ({
   params,
   onSpikeOccurred,
+  pulseBufferRef,
 }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [isPlaying, setIsPlaying] = useState<boolean>(true);
@@ -28,6 +30,41 @@ export const PulseOscilloscope: React.FC<PulseOscilloscopeProps> = ({
   const handleResetBuffer = () => {
     dataBufferRef.current = [];
     timeCounterRef.current = 0;
+  };
+
+  // Export current waveform data buffer as CSV
+  const handleExportCsv = () => {
+    const points = dataBufferRef.current;
+    if (!points || points.length === 0) return;
+
+    const headers = [
+      'Timestamp_ms',
+      'NeuroVoltage_mV',
+      'BinarySignal',
+      'UnifiedNeuroBIN_mV',
+      'IsSpike',
+      'CantorIntervalIndex',
+    ];
+
+    const rows = points.map((p) => [
+      p.timeMs.toFixed(2),
+      p.neuroVoltageMv.toFixed(3),
+      p.binSignal,
+      p.unifiedNeuroBin.toFixed(3),
+      p.isSpike ? 1 : 0,
+      p.cantorIntervalIndex ?? '',
+    ]);
+
+    const csvContent = [headers.join(','), ...rows.map((r) => r.join(','))].join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.setAttribute('href', url);
+    link.setAttribute('download', `NeuroBIN_Waveform_${Date.now()}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
   };
 
   useEffect(() => {
@@ -60,6 +97,10 @@ export const PulseOscilloscope: React.FC<PulseOscilloscopeProps> = ({
 
         if (dataBufferRef.current.length > historyLength) {
           dataBufferRef.current.shift();
+        }
+
+        if (pulseBufferRef) {
+          pulseBufferRef.current = dataBufferRef.current;
         }
       }
 
@@ -250,6 +291,17 @@ export const PulseOscilloscope: React.FC<PulseOscilloscopeProps> = ({
           >
             {isPlaying ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5" />}
             <span>{isPlaying ? 'Pause' : 'Run'}</span>
+          </button>
+
+          {/* Export CSV */}
+          <button
+            id="export-csv-btn"
+            onClick={handleExportCsv}
+            className="flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 font-bold border border-emerald-500/40 transition shadow-sm shadow-emerald-500/20"
+            title="Export simulation waveform buffer to .CSV file"
+          >
+            <Download className="w-3.5 h-3.5 text-emerald-400" />
+            <span>Export CSV</span>
           </button>
 
           <button

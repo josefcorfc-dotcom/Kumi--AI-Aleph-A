@@ -1,5 +1,5 @@
 import React from 'react';
-import { Activity, Volume2, VolumeX, BookOpen, Sparkles, Cpu, Zap, RefreshCw } from 'lucide-react';
+import { Activity, Volume2, VolumeX, BookOpen, Sparkles, Cpu, Zap, RefreshCw, History, Keyboard } from 'lucide-react';
 import { audioSynth } from '../utils/audio';
 
 interface HeaderProps {
@@ -7,6 +7,7 @@ interface HeaderProps {
   setIsMuted: (muted: boolean) => void;
   onOpenTheory: () => void;
   onOpenAiAssistant: () => void;
+  onOpenShortcuts: () => void;
   onApplyPreset: (presetName: string) => void;
 }
 
@@ -15,6 +16,7 @@ export const Header: React.FC<HeaderProps> = ({
   setIsMuted,
   onOpenTheory,
   onOpenAiAssistant,
+  onOpenShortcuts,
   onApplyPreset,
 }) => {
   const handleToggleAudio = () => {
@@ -74,7 +76,18 @@ export const Header: React.FC<HeaderProps> = ({
               <RefreshCw className="w-3.5 h-3.5 text-indigo-400" />
               <span className="font-medium">Presets</span>
             </button>
-            <div className="absolute right-0 top-full mt-2 w-52 bg-[#080d24]/90 backdrop-blur-2xl border border-white/15 rounded-2xl shadow-2xl py-1.5 hidden group-hover:block z-50">
+            <div className="absolute right-0 top-full mt-2 w-56 bg-[#080d24]/90 backdrop-blur-2xl border border-white/15 rounded-2xl shadow-2xl py-1.5 hidden group-hover:block z-50">
+              <button
+                id="preset-last-session"
+                onClick={() => onApplyPreset('last_session')}
+                className="w-full text-left px-3.5 py-2 text-xs text-amber-300 hover:bg-white/10 flex items-center justify-between font-semibold border-b border-white/10 transition"
+              >
+                <div className="flex items-center gap-1.5">
+                  <History className="w-3.5 h-3.5 text-amber-400" />
+                  <span>Last Session</span>
+                </div>
+                <span className="text-[9px] font-mono text-slate-400 uppercase bg-white/5 px-1.5 py-0.5 rounded border border-white/10">Auto-Saved</span>
+              </button>
               <button
                 id="preset-standard"
                 onClick={() => onApplyPreset('standard')}
@@ -129,6 +142,17 @@ export const Header: React.FC<HeaderProps> = ({
           >
             <BookOpen className="w-3.5 h-3.5 text-indigo-400" />
             <span className="hidden sm:inline font-medium">Cantor Theory</span>
+          </button>
+
+          {/* Keyboard Shortcuts Trigger */}
+          <button
+            id="open-shortcuts-btn"
+            onClick={onOpenShortcuts}
+            className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full bg-white/5 hover:bg-white/10 text-slate-200 border border-white/10 transition backdrop-blur-md font-mono"
+            title="View Keyboard Shortcuts (?)"
+          >
+            <Keyboard className="w-3.5 h-3.5 text-cyan-400" />
+            <span className="text-[11px] font-bold text-cyan-300">?</span>
           </button>
 
           {/* AI Laboratory Assistant Trigger */}
