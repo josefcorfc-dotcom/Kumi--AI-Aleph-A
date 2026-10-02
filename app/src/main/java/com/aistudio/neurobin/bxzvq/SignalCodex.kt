@@ -3,6 +3,7 @@ package com.aistudio.neurobin.bxzvq
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
@@ -121,7 +122,7 @@ fun SignalCodex(modifier: Modifier = Modifier) {
                 horizontalArrangement = Arrangement.spacedBy(4.dp),
                 verticalArrangement = Arrangement.spacedBy(4.dp)
             ) {
-                binaryStr.forEachIndexed { idx, bit ->
+                for (bit in binaryStr) {
                     val isOne = bit == '1'
                     Box(
                         modifier = Modifier
